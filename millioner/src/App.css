@@ -1,0 +1,107 @@
+/* Общие стили для приложения */
+body {
+  font-family: Arial, sans-serif;
+  background: linear-gradient(135deg, #002b5b, #004e89);
+  color: #f1f1f1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+.App {
+  width: 100%;
+  max-width: 600px;
+  text-align: center;
+  padding: 20px;
+  background-color: #1c2b3a;
+  border-radius: 10px;
+  box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.5);
+  animation: fadeIn 1s ease-in;
+}
+
+h1 {
+  font-size: 2.5rem;
+  color: #f1c40f;
+  margin-bottom: 20px;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+}
+
+h2 {
+  font-size: 1.8rem;
+  color: #ffffff;
+  margin-bottom: 20px;
+}
+
+/* Стиль для вопросов */
+.question {
+  background-color: #3b4f63;
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.3);
+  font-size: 1.25rem;
+  color: #f1f1f1;
+}
+
+/* Стили для списка вариантов ответа */
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+li {
+  margin: 10px 0;
+}
+
+button {
+  background-color: #f1c40f;
+  color: #1c2b3a;
+  border: none;
+  border-radius: 5px;
+  padding: 12px 20px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  width: 100%;
+  max-width: 250px;
+  box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+button:hover {
+  background-color: #d4ac0d;
+  transform: scale(1.05);
+}
+
+button:disabled {
+  background-color: #7d8b99;
+  cursor: not-allowed;
+}
+
+/* Стиль для поля ввода */
+input[type="text"] {
+  padding: 10px;
+  font-size: 1rem;
+  border: 2px solid #3b4f63;
+  border-radius: 5px;
+  margin-right: 10px;
+  width: 60%;
+  max-width: 200px;
+  color: #333;
+}
+
+/* Анимация появления */
+@keyframes fadeIn {
+  from {
+      opacity: 0;
+      transform: translateY(-20px);
+  }
+  to {
+      opacity: 1;
+      transform: translateY(0);
+  }
+}
