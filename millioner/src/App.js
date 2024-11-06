@@ -1,121 +1,114 @@
-import React, { useState } from 'react';
-import questions from './questions';
-import './App.css';
+import React, { useState, useEffect, useRef } from "react";
+import questions from "./questions";
+import Question from "./components/Question";
+import Timer from "./components/Timer";
+import Result from "./components/Result";
+import Registration from "./components/Registration";
+import './App.css'; 
 
-function App() {
-    const [playerName, setPlayerName] = useState('');
-    const [isRegistered, setIsRegistered] = useState(false);
-    const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-    const [fiftyFiftyUsed, setFiftyFiftyUsed] = useState(false);
-    const [helpUsed, setHelpUsed] = useState(false);
-    const [hiddenOptions, setHiddenOptions] = useState([]);
+const App = () => {
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+  const [score, setScore] = useState(0); 
+  const [timer, setTimer] = useState(30); 
+  const [gameOver, setGameOver] = useState(false);
+  const [selectedAnswer, setSelectedAnswer] = useState(null);
+  const [username, setUsername] = useState(""); 
 
-    
-    const registerPlayer = () => {
-        if (playerName.trim() === '') {
-            alert("Enter your name to continue!");
-            return;
-        }
-        setIsRegistered(true);
-    };
+  const musicRef = useRef(null); 
 
-    const loadNextQuestion = () => {
-        if (currentQuestionIndex + 1 < questions.length) {
-            setCurrentQuestionIndex(currentQuestionIndex + 1);
-            setFiftyFiftyUsed(false);
-            setHelpUsed(false);
-            setHiddenOptions([]); 
-        } else {
-            alert(`Congratulation, ${playerName}! You won!`);
-            resetGame();
-        }
-    };
+  const currentQuestion = questions[currentQuestionIndex];
+  const { question, options, answer: correctAnswer } = currentQuestion;
 
-    const resetGame = () => {
-        setIsRegistered(false);
-        setPlayerName('');
-        setCurrentQuestionIndex(0);
-        setFiftyFiftyUsed(false);
-        setHelpUsed(false);
-        setHiddenOptions([]);
-    };
-
-    const checkAnswer = (selectedIndex) => {
-        const question = questions[currentQuestionIndex];
-        if (selectedIndex === question.correctAnswer) {
-            alert("You are right!");
-        } else {
-            alert("Wrong answer, but you can continue game.");
-        }
-        loadNextQuestion();
-    };
-
-    const useFiftyFifty = () => {
-        if (fiftyFiftyUsed) {
-            alert("50/50 hint has already been used.");
-            return;
-        }
-        setFiftyFiftyUsed(true);
-
-        const question = questions[currentQuestionIndex];
-        const incorrectOptions = question.options
-            .map((option, index) => (index !== question.correctAnswer ? index : null))
-            .filter(index => index !== null);
-
-       
-        const optionsToHide = incorrectOptions.sort(() => Math.random() - 0.5).slice(0, 2);
-        setHiddenOptions(optionsToHide);
-    };
-
-    const showCorrectAnswer = () => {
-        if (helpUsed) {
-            alert("The hint 'Help Hall' has already been used.");
-            return;
-        }
-        setHelpUsed(true);
-        const question = questions[currentQuestionIndex];
-        alert(`Right answer: ${question.options[question.correctAnswer]}`);
-    };
-
-    if (!isRegistered) {
-        return (
-            <div className="App">
-                <h1>Who wants to become a millionaire?</h1>
-                <div>
-                    <label>Enter your name: </label>
-                    <input
-                        type="text"
-                        value={playerName}
-                        onChange={(e) => setPlayerName(e.target.value)}
-                    />
-                    <button onClick={registerPlayer}>Start</button>
-                </div>
-            </div>
-        );
+  useEffect(() => {
+    if (musicRef.current) {
+      musicRef.current.loop = true; 
+      if (!gameOver && username) {
+        musicRef.current.play(); 
+      } else {
+        musicRef.current.pause(); 
+      }
     }
 
-    const question = questions[currentQuestionIndex];
-    const displayedOptions = question.options.map((option, index) => {
-        if (hiddenOptions.includes(index)) return null; // 50/50
-        return (
-            <li key={index}>
-                <button onClick={() => checkAnswer(index)}>{option}</button>
-            </li>
-        );
-    });
+    if (timer > 0 && !gameOver) {
+      const interval = setInterval(() => {
+        setTimer((prevTime) => prevTime - 1);
+      }, 1000);
 
-    return (
-        <div className="App">
-            <h1>Who wants to become a millionaire?</h1>
-            <h2>Hello, {playerName}!</h2>
-            <div className="question">
-                <p>{question.question}</p>
-                <ul>{displayedOptions}</ul>
-            </div>
-            <button onClick={useFiftyFifty} disabled={fiftyFiftyUsed}>50/50</button>
-            <button onClick={showCorrectAnswer} disabled={helpUsed}>Help Hall</button>
+      return () => clearInterval(interval);
+    } else if (timer === 0) {
+      setGameOver(true); 
+    }
+  }, [timer, gameOver, username]);
+
+  const handleAnswer = (selectedAnswer) => {
+    setSelectedAnswer(selectedAnswer); 
+
+    if (selectedAnswer === correctAnswer) {
+      setScore(score + 1000); 
+    } 
+
+    if (currentQuestionIndex + 1 < questions.length) {
+      setTimeout(() => {
+        setCurrentQuestionIndex(currentQuestionIndex + 1);
+        setSelectedAnswer(null); 
+        setTimer(30); 
+      }, 1500); 
+    } else {
+      setTimeout(() => setGameOver(true), 1500); 
+    }
+  };
+
+  const handleStartGame = (name) => {
+    setUsername(name);
+    setGameOver(false); 
+    setCurrentQuestionIndex(0); 
+    setScore(0); 
+    setTimer(30); 
+  };
+
+  const handleRestartGame = () => {
+    setGameOver(false);
+    setCurrentQuestionIndex(0);
+    setScore(0);
+    setTimer(30);
+  };
+
+  return (
+    <div>
+      <audio ref={musicRef} src="music.mp3" /> 
+
+      {!username ? (
+        <Registration onStartGame={handleStartGame} />
+      ) : gameOver ? (
+        <Result score={score} username={username} />
+      ) : (
+        <>
+          <h1>Who wants to become a millionaire</h1>
+          <p>Gamer: {username}</p>    
+          <div className="score-board">
+            <p> Count: {score}</p> 
+          </div>
+          <Timer time={timer} />
+          <Question
+            question={question}
+            options={options}
+            onAnswer={handleAnswer}
+            selectedAnswer={selectedAnswer}
+            correctAnswer={correctAnswer}
+          />
+        </>
+      )}
+
+     
+      {gameOver && (
+        <div className="restart-button-container">
+          <button className="restart-button" onClick={handleRestartGame}>
+            Restart
+          </button>
         </div>
-    );
-}
+      )}
+    </div>
+  );
+};
 
 export default App;
