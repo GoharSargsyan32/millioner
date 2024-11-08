@@ -1,8 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import {
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword
 } from "firebase/auth";
 import { auth, db } from "../../firebase";
 import { Form, Button, Input } from "antd";
