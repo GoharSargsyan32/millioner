@@ -17,7 +17,7 @@ const App = () => {
   const musicRef = useRef(null); 
 
   const currentQuestion = questions[currentQuestionIndex];
-  const { question, options, answer: correctAnswer } = currentQuestion;
+  const { question, options, correctAnswer } = currentQuestion;
 
   useEffect(() => {
     if (musicRef.current) {
@@ -35,7 +35,7 @@ const App = () => {
       }, 1000);
 
       return () => clearInterval(interval);
-    } else if (timer === 0) {
+    } else if (timer === 0 && username ) {
       setGameOver(true); 
     }
   }, [timer, gameOver, username]);
@@ -43,9 +43,11 @@ const App = () => {
   const handleAnswer = (selectedAnswer) => {
     setSelectedAnswer(selectedAnswer); 
 
-    if (selectedAnswer === correctAnswer) {
+    if (selectedAnswer === currentQuestion.options[correctAnswer]) {
       setScore(score + 1000); 
-    } 
+    } else {
+      setGameOver(true); 
+    }
 
     if (currentQuestionIndex + 1 < questions.length) {
       setTimeout(() => {
@@ -74,7 +76,8 @@ const App = () => {
   };
 
   return (
-    <div>
+    
+<div>
       <audio ref={musicRef} src="music.mp3" /> 
 
       {!username ? (
@@ -83,7 +86,7 @@ const App = () => {
         <Result score={score} username={username} />
       ) : (
         <>
-          <h1>Who wants to become a millionaire</h1>
+          <h1>Who wants to become a millionaire?</h1>
           <p>Gamer: {username}</p>    
           <div className="score-board">
             <p> Count: {score}</p> 
@@ -108,7 +111,8 @@ const App = () => {
         </div>
       )}
     </div>
-  );
+  
+  )   
 };
 
 export default App;

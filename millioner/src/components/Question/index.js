@@ -9,12 +9,11 @@ const Question = ({
       <div>
         <h2>{question}</h2>
         {options.map((option, index) => {
-          let className = '';
-          
-          if (selectedAnswer) {
-            if (option === correctAnswer) {
+          let className = '';          
+          if (selectedAnswer && option===selectedAnswer) {
+            if (index === correctAnswer) {
               className = 'correct'; 
-            } else if (option === selectedAnswer && option !== correctAnswer) {
+            } else {
               className = 'incorrect'; 
             }
           }
@@ -22,7 +21,7 @@ const Question = ({
             <button
               key={index}
               onClick={() => onAnswer(option)}
-              className={className}
+              className={className} 
             >
               {option}
             </button>
