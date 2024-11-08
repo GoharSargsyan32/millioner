@@ -1,0 +1,45 @@
+
+.game-over {
+    background-color: #dcd2f5;
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 500px;
+    margin: 0 auto;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .game-over h1 {
+    font-family: 'Arial', sans-serif;
+    font-size: 36px;
+    color: #337dbd;
+    margin-bottom: 20px;
+  }
+  
+  .game-over p {
+    font-family: 'Verdana', sans-serif;
+    font-size: 18px;
+    color: #2c3e50;
+    font-weight: bold;
+  }
+  
+  .game-over p span {
+    color: #16a085;  /* Highlighted text color for score */
+  }
+  
+  .game-over:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  }
+
+  .game-over .restart-button {
+    width: 150px;
+    height: 40px;
+    cursor: pointer;
+    background-color: red;
+    color: white;
+    border: none;
+    border-radius: 3px;
+  }
+  

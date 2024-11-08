@@ -1,0 +1,91 @@
+
+  .auth-wrapper {
+    background-color: #8160d4;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    width: 800px;
+    height: 600px;
+    text-align: center;
+  }
+  
+  .auth-wrapper h1 {
+    color: #3faffa;
+    font-size: 2.5rem;
+    margin-bottom: 30px;
+    font-weight: 600;
+    letter-spacing: 1px;
+  }
+  
+  .form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .form .ant-form-item-label {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #555;
+  }
+  
+  .form .ant-input, .form .ant-input-password {
+    padding: 12px;
+    font-size: 1rem;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .form .ant-input:focus, .form .ant-input-password:focus {
+    border-color: #3faffa;
+    box-shadow: 0 0 5px rgba(63, 175, 250, 0.5);
+  }
+  
+  .form .ant-form-item {
+    margin-bottom: 15px;
+  }
+  
+  .ant-form-item-explain-error {
+    color: #f44336;
+    font-size: 0.9rem;
+  }
+  
+ 
+  .btns {
+    margin-top: 20px;
+  }
+  
+  .ant-btn-primary {
+    background-color: #3faffa;
+    border-color: #3faffa;
+    color: white;
+    font-size: 1.1rem;
+    padding: 12px 20px;
+    width: 100%;
+    border-radius: 10px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .ant-btn-primary:hover {
+    background-color: #337dbd;
+    border-color: #337dbd;
+  }
+  
+  .ant-btn-primary:focus {
+    outline: none;
+    box-shadow: 0 0 5px rgba(63, 175, 250, 0.5);
+  }
+  
+  
+  .form .ant-input-password {
+    font-size: 1rem;
+    padding: 12px;
+    border-radius: 10px;
+  }
+  
+  .form .ant-input-password:focus {
+    border-color: #3faffa;
+  }
+  
+  

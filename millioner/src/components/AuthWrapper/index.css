@@ -1,17 +1,61 @@
 .auth_wrapper {
-  max-width: 800px;
+  max-width: 500px;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   margin: 10px auto;
 }
 
-.banner_container {
-    background-color: rgba(221, 220, 220, 92);
+.form_container {
+  width: 500px;
+  background-color: rgb(0, 83, 128);
+  border: 1px solid rgba(221, 220, 220, 92);
+  border-radius:12px;
+  padding: 12px;
 }
 
-.form_container {
-  border: 1px solid rgba(221, 220, 220, 92);
-  border-bottom-right-radius:12px;
-  border-top-right-radius:12px;
+.auth-wrapper .form .ant-form-item-label {
+  font-size: 1rem;
+  font-weight: bold;
+  color: #333;
+}
+
+.auth-wrapper .form .ant-input, .auth-wrapper .form .ant-input-password {
   padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+}
+
+.auth-wrapper .form .ant-input:focus, .auth-wrapper .form .ant-input-password:focus {
+  border-color: #3faffa;
+  box-shadow: 0 0 5px rgba(63, 175, 250, 0.5);
+}
+
+.auth-wrapper .btns {
+  margin-top: 20px;
+}
+
+.auth-wrapper .ant-btn-primary {
+  background-color: #3faffa;
+  border: none;
+  color: white;
+  padding: 12px 20px;
+  font-size: 1.1rem;
+  width: 100%;
+  border-radius: 8px;
+  transition: background-color 0.3s ease;
+}
+
+.auth-wrapper .ant-btn-primary:hover {
+  background-color: #337dbd;
+}
+
+.auth-wrapper .ant-btn-primary:focus {
+  outline: none;
+  box-shadow: 0 0 5px rgba(63, 175, 250, 0.5);
+}
+
+.auth-wrapper .ant-form-item-explain-error {
+  font-size: 0.9rem;
+  color: #f44336;
 }

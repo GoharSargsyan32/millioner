@@ -1,5 +1,7 @@
+import "./index.css";
+
 const Timer = ({ time }) => {
-    return <div>Time: {time}s</div>;
+    return <div className="timer">Timer: {time}s</div>;
   };
 
   export default Timer;
